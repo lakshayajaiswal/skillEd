@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>skillEd — Find your voice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1B1F;
+    --paper:#FBF6EE;
+    --amber:#F5A623;
+    --coral:#FF6B5E;
+    --teal:#1F6F66;
+    --sand:#E8DFC8;
+    --line: rgba(27,27,31,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Sora', sans-serif;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:28px 32px;
+    max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.4rem;
+    letter-spacing:-0.01em;
+  }
+  .logo span{color:var(--coral); font-style:italic;}
+  .nav-links{display:flex; gap:32px; font-size:0.95rem; font-weight:500;}
+  .nav-links a{opacity:0.75; transition:opacity 0.2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--ink); color:var(--paper);
+    padding:10px 20px; border-radius:100px;
+    font-size:0.9rem; font-weight:600;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:64px 32px 40px;
+    max-width:1180px; margin:0 auto;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--teal);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:20px;
+  }
+  .eyebrow::before{
+    content:''; width:8px; height:8px; border-radius:50%;
+    background:var(--coral);
+    animation:blink 2s infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.6rem, 5vw, 4.2rem);
+    line-height:1.03;
+    letter-spacing:-0.02em;
+  }
+  h1 em{
+    font-style:italic; font-weight:500; color:var(--coral);
+  }
+  .hero p.lede{
+    margin-top:22px;
+    font-size:1.15rem;
+    line-height:1.6;
+    color:rgba(27,27,31,0.72);
+    max-width:480px;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    padding:15px 26px;
+    border-radius:100px;
+    font-weight:600;
+    font-size:0.98rem;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform 0.18s ease, box-shadow 0.18s ease;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(27,27,31,0.25);}
+  .btn-secondary{background:transparent; color:var(--ink); border:1.5px solid var(--line);}
+  .btn-secondary:hover{border-color:var(--ink); transform:translateY(-2px);}
+
+  /* ---------- WAVEFORM SIGNATURE ---------- */
+  .wave-stage{
+    position:relative;
+    height:380px;
+    display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(160deg, var(--sand), var(--paper));
+    border-radius:28px;
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .wave-bars{
+    display:flex; align-items:center; gap:6px; height:60%;
+  }
+  .wave-bars span{
+    display:block;
+    width:7px;
+    border-radius:4px;
+    background:var(--ink);
+    animation: bar 1.4s ease-in-out infinite;
+  }
+  .wave-bars span:nth-child(odd){background:var(--coral);}
+  .wave-bars span:nth-child(3n){background:var(--teal);}
+  @keyframes bar{
+    0%, 100%{ transform:scaleY(0.3); }
+    50%{ transform:scaleY(1); }
+  }
+  .wave-caption{
+    position:absolute; bottom:20px; left:24px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:rgba(27,27,31,0.5);
+    letter-spacing:0.05em;
+  }
+
+  /* ---------- PATH SPLIT ---------- */
+  .split{
+    padding:60px 32px 100px;
+    max-width:1180px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; gap:24px;
+  }
+  .path-card{
+    border-radius:24px;
+    padding:40px;
+    border:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+    cursor:pointer;
+  }
+  .path-card:hover{ transform:translateY(-4px); box-shadow:0 20px 40px rgba(27,27,31,0.1);}
+  .path-card.student{background:var(--ink); color:var(--paper);}
+  .path-card.teacher{background:#fff;}
+  .path-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.74rem; text-transform:uppercase; letter-spacing:0.1em;
+    opacity:0.6;
+  }
+  .path-card h3{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:1.9rem; margin:14px 0 12px;
+  }
+  .path-card p{
+    font-size:0.98rem; line-height:1.6;
+    opacity:0.78; max-width:380px;
+  }
+  .path-card .go{
+    margin-top:26px; font-weight:600; font-size:0.92rem;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .path-card.student .go{color:var(--amber);}
+  .path-card.teacher .go{color:var(--coral);}
+  .path-card .go svg{transition:transform 0.2s;}
+  .path-card:hover .go svg{transform:translateX(4px);}
+
+  /* ---------- AGE TRACK ---------- */
+  .ages{
+    padding:0 32px 100px;
+    max-width:1180px; margin:0 auto;
+  }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-bottom:36px; flex-wrap:wrap; gap:12px;
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:2rem;
+  }
+  .section-head .meta{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem;
+    color:rgba(27,27,31,0.55);
+  }
+  .age-track{
+    display:flex; gap:16px; overflow-x:auto; padding-bottom:8px;
+    scrollbar-width:none;
+  }
+  .age-track::-webkit-scrollbar{display:none;}
+  .age-chip{
+    flex:0 0 220px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:24px;
+    background:#fff;
+  }
+  .age-range{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem; color:var(--teal); font-weight:500;
+  }
+  .age-chip h4{
+    font-family:'Fraunces', serif; font-size:1.25rem; margin:10px 0 8px; font-weight:600;
+  }
+  .age-chip p{font-size:0.88rem; opacity:0.7; line-height:1.5;}
+
+  /* ---------- APPROVAL FLOW ---------- */
+  .flow{
+    padding:0 32px 110px; max-width:1180px; margin:0 auto;
+  }
+  .flow-row{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    gap:0; border:1px solid var(--line); border-radius:20px; overflow:hidden;
+  }
+  .flow-step{
+    padding:30px 24px; border-right:1px solid var(--line);
+    background:#fff;
+  }
+  .flow-step:last-child{border-right:none; background:var(--ink); color:var(--paper);}
+  .flow-step .stamp{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
+    text-transform:uppercase; letter-spacing:0.08em;
+    padding:4px 10px; border-radius:100px;
+    display:inline-block; margin-bottom:14px;
+  }
+  .flow-step:nth-child(1) .stamp{background:var(--sand); color:var(--ink);}
+  .flow-step:nth-child(2) .stamp{background:#FFE4B8; color:#8A5300;}
+  .flow-step:nth-child(3) .stamp{background:#D7ECE8; color:var(--teal);}
+  .flow-step:nth-child(4) .stamp{background:rgba(255,255,255,0.15); color:var(--amber);}
+  .flow-step h5{font-size:1.02rem; font-weight:600; margin-bottom:6px;}
+  .flow-step p{font-size:0.85rem; opacity:0.7; line-height:1.5;}
+  .flow-step:last-child p{opacity:0.75;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:34px 32px;
+    max-width:1180px; margin:0 auto;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.85rem; opacity:0.6;
+    flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width: 880px){
+    .hero{grid-template-columns:1fr; padding-top:40px;}
+    .split{grid-template-columns:1fr;}
+    .flow-row{grid-template-columns:1fr 1fr;}
+    .flow-step{border-bottom:1px solid var(--line);}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">skill<span>Ed</span></div>
+  <div class="nav-links">
+    <a href="#paths">Get started</a>
+    <a href="#ages">Age groups</a>
+    <a href="#flow">How review works</a>
+  </div>
+  <a class="nav-cta" href="dashboard.html">Sign in</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">Live · 248 lessons reviewed this week</div>
+    <h1>Say it like<br>you <em>mean</em> it.</h1>
+    <p class="lede">skillEd helps students build real communication and speaking confidence with material that's actually been checked — every lesson is reviewed before it ever reaches a learner.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="dashboard.html?view=student">I'm a student</a>
+      <a class="btn btn-secondary" href="dashboard.html?view=teacher">I'm a teacher</a>
+    </div>
+  </div>
+  <div class="wave-stage" aria-hidden="true">
+    <div class="wave-bars" id="waveBars"></div>
+    <div class="wave-caption">FIND YOUR VOICE — LIVE INPUT</div>
+  </div>
+</section>
+
+<section class="split" id="paths">
+  <div class="path-card student" onclick="window.location.href='dashboard.html?view=student'">
+    <span class="path-tag">For students</span>
+    <h3>Learn to speak with confidence</h3>
+    <p>Pick your age group and get a path built for how you actually talk, present, and connect — not generic grammar drills.</p>
+    <div class="go">Browse by age
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+  <div class="path-card teacher" onclick="window.location.href='dashboard.html?view=teacher'">
+    <span class="path-tag">For teachers</span>
+    <h3>Share material that gets seen</h3>
+    <p>Upload your lessons, tag the right age group, and submit for review. Once approved, it's live for every matching student.</p>
+    <div class="go">See how review works
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</section>
+
+<section class="ages" id="ages">
+  <div class="section-head">
+    <h2>Built around how you talk at every age</h2>
+    <span class="meta">6 BANDS · UPDATED WEEKLY</span>
+  </div>
+  <div class="age-track">
+    <div class="age-chip"><div class="age-range">AGE 6–8</div><h4>Find your words</h4><p>Storytelling, show-and-tell confidence, simple eye contact games.</p></div>
+    <div class="age-chip"><div class="age-range">AGE 9–11</div><h4>Speak up in class</h4><p>Answering out loud, group discussion basics, reading body language.</p></div>
+    <div class="age-chip"><div class="age-range">AGE 12–14</div><h4>Make your case</h4><p>Short debates, structured opinions, handling disagreement calmly.</p></div>
+    <div class="age-chip"><div class="age-range">AGE 15–17</div><h4>Present like a pro</h4><p>Public speaking, interviews, persuasive structure, tone control.</p></div>
+    <div class="age-chip"><div class="age-range">AGE 18–22</div><h4>Own the room</h4><p>Pitching, negotiation basics, networking conversations, Q&A handling.</p></div>
+    <div class="age-chip"><div class="age-range">AGE 22+</div><h4>Lead the conversation</h4><p>Leadership communication, difficult feedback, executive presence.</p></div>
+  </div>
+</section>
+
+<section class="flow" id="flow">
+  <div class="section-head">
+    <h2>Nothing reaches a student unreviewed</h2>
+    <span class="meta">SUBMIT → REVIEW → APPROVE → LIVE</span>
+  </div>
+  <div class="flow-row">
+    <div class="flow-step">
+      <span class="stamp">Submitted</span>
+      <h5>Teacher uploads</h5>
+      <p>Title, age band, and the material itself — doc, video, or slides.</p>
+    </div>
+    <div class="flow-step">
+      <span class="stamp">In review</span>
+      <h5>Owner checks it</h5>
+      <p>Checked for accuracy, age-fit, and tone before anyone sees it.</p>
+    </div>
+    <div class="flow-step">
+      <span class="stamp">Approved</span>
+      <h5>Tagged & published</h5>
+      <p>Sorted into the right age band automatically once approved.</p>
+    </div>
+    <div class="flow-step">
+      <span class="stamp">Live</span>
+      <h5>Visible to students</h5>
+      <p>Shows up instantly for every student in that age group.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>skillEd — built for clearer conversations</div>
+  <div>© 2026</div>
+</footer>
+
+<script>
+  // Build animated waveform bars with varied heights/delays for an organic feel
+  const bars = document.getElementById('waveBars');
+  const count = 28;
+  for(let i=0;i<count;i++){
+    const b = document.createElement('span');
+    const h = 20 + Math.random()*70;
+    b.style.height = h + 'px';
+    b.style.animationDelay = (Math.random()*1.2) + 's';
+    b.style.animationDuration = (1 + Math.random()*0.8) + 's';
+    bars.appendChild(b);
+  }
+</script>
+
+</body>
+</html>
